@@ -2,7 +2,7 @@ clc, clear all
 addpath app/
 %% Open Gui
 
-% run GPA_nucleo_UART_exported.m
+run GPA_nucleo_UART_exported.m
 
 % You might want to use the following code later.
 

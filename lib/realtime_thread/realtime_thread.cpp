@@ -49,8 +49,11 @@ void realtime_thread::loop(void)
         const float phi_fw_vel = m_IO_handler->get_phi_fw_vel();
         const float gz = m_IO_handler->get_gz();
         const float phi_bd = m_IO_handler->get_phi_bd();
+        const float aX = m_IO_handler->get_ax();
+        const float aY = m_IO_handler->get_ay();
 
-        myDataLogger.write_to_log(time, phi_bd, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+        myDataLogger.write_to_log(time, phi_bd, aX, aY, phi_bd, 0.0f, 0.0f);
+        
 
         // // state machine
         // float i_des = 0.0f;
