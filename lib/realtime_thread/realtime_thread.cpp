@@ -35,7 +35,26 @@ realtime_thread::~realtime_thread() {}
 void realtime_thread::loop(void)
 {
     const float km = 36.9e-3f;
+<<<<<<< HEAD
     float exc = 0.0f;
+=======
+
+    // --- AUFGABE 5.2 ---
+    // variables for stabilizing state space controller for cube angle and angle velocity
+
+
+    // --- AUFGABE 6.5 ---
+    // variables for state space controller with integrator for velocity error
+
+
+    // --- AUFGABE 7.1 ---
+    // simple P controller gain
+
+
+    // --- AUFGABE 7.5 ---
+    // excitation signal for frequency response measurement
+
+>>>>>>> 31d4a9c (Prepared template for follow up lab)
 
     while (1) {
         ThisThread::flags_wait_any(m_ThreadFlag);
@@ -52,8 +71,14 @@ void realtime_thread::loop(void)
         const float aX = m_IO_handler->get_ax();
         const float aY = m_IO_handler->get_ay();
 
+<<<<<<< HEAD
         myDataLogger.write_to_log(time, phi_bd, aX, aY, phi_bd, 0.0f, 0.0f);
         
+=======
+        // --- AUFGABE 3.2 ---
+        // log angle estimate from complementary filter
+        myDataLogger.write_to_log(time, phi_bd, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+>>>>>>> 31d4a9c (Prepared template for follow up lab)
 
         // // state machine
         // float i_des = 0.0f;
@@ -74,7 +99,17 @@ void realtime_thread::loop(void)
         //     case FLAT: {
         //         // ------------------- FLAT -------------------
 
+<<<<<<< HEAD
 
+=======
+                // --- AUFGABE 7.1 ---
+                // simple P controller
+
+
+                // --- AUFGABE 7.5 ---
+                // use P controller to measure the frequency response
+
+>>>>>>> 31d4a9c (Prepared template for follow up lab)
 
         //         // switch to BALANCE
         //         if (do_transition) {
@@ -85,6 +120,7 @@ void realtime_thread::loop(void)
         //     case BALANCE: {
         //         // ------------------- BALANCE ----------------
 
+<<<<<<< HEAD
 
 
         //         // switch to FLAT
@@ -103,6 +139,48 @@ void realtime_thread::loop(void)
 
         // // GPA - do not overwrite exc if you want to excite via the GPA
         // exc = myGPA.update(i_des, phi_fw_vel); // GPA calculates future excitation exc(k+1)
+=======
+                // --- AUFGABE 5.2 ---
+                // stabilizing state space controller for cube angle and angle velocity
+
+
+                // --- AUFGABE 6.5 ---
+                // state space controller with integrator for velocity error
+
+
+                // switch to FLAT
+                if (do_transition) {
+                    m_state = FLAT;
+                    // --- AUFGABE 7.2 ---
+                    // if we go to FLAT, reset integrator state
+
+                }
+                break;
+            }
+            default:
+                break;
+        }
+
+        // write current setpoint to motor
+        // --- AUFGABE 5.2 ---
+        // limit current to +/-15 A
+
+
+        m_IO_handler->write_current(i_des);
+
+        // // --- AUFGABE 7.4 ---
+        // // log swing up and balancing data
+        // myDataLogger.write_to_log(time,
+        //                           w,     // 1
+        //                           i_des, // 2
+        //                           0.0f,  // 3
+        //                           0.0f,  // 4
+        //                           0.0f,  // 5
+        //                           0.0f); // 6
+
+        // --- AUFGABE 7.5 ---
+        // measure the frequency response, GPA calculates future excitation exc(k+1)
+>>>>>>> 31d4a9c (Prepared template for follow up lab)
     }
 }
 
