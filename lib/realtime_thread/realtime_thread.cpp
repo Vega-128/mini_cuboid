@@ -65,6 +65,8 @@ void realtime_thread::loop(void)
         const float phi_fw_vel = m_IO_handler->get_phi_fw_vel();
         const float gz = m_IO_handler->get_gz();
         const float phi_bd = m_IO_handler->get_phi_bd();
+        const float aX = m_IO_handler->get_ax();
+        const float aY = m_IO_handler->get_ay();
 
         // --- AUFGABE 3.2 ---
         // log angle estimate from complementary filter
