@@ -38,6 +38,7 @@ IO_handler::IO_handler(float Ts)
     // differentiating low pass filter
     m_fil_diff.differentiatingLowPass1Init(1.0f / (2.0f * M_PIf * 40.0f), Ts);
 
+    // --- AUFGABE 3.1 ---
     // low pass filters for complementary filter
     m_tau = 1.0f;
     m_fil_ax.lowPass1Init( m_tau, Ts);
@@ -59,6 +60,7 @@ void IO_handler::update(void)
     m_ay = m_lc_ay2ay(-m_imu.readAcc_raw(0));
     m_gz = m_lc_gz2gz(m_imu.readGyro_raw(2));
 
+    // --- AUFGABE 3.2 ---
     // calculate complementary filter for wheel angle
     
     m_phi_bd = atan2(m_fil_ax(m_ax),m_fil_ay(m_ay)) + m_fil_gz(m_gz)*m_tau + (M_PIf/4.0f);

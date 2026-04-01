@@ -34,7 +34,9 @@ realtime_thread::~realtime_thread() {}
 // this is the main loop called every Ts with high priority
 void realtime_thread::loop(void)
 {
+    // motor constant
     const float km = 36.9e-3f;
+<<<<<<< HEAD
 <<<<<<< HEAD
     float exc = 0.0f;
 =======
@@ -55,8 +57,26 @@ void realtime_thread::loop(void)
     // excitation signal for frequency response measurement
 
 >>>>>>> 31d4a9c (Prepared template for follow up lab)
+=======
+>>>>>>> 1481f77dda6af713fcb1994ded184ea24546c788
 
-    while (1) {
+    // --- AUFGABE 5.2 ---
+    // variables for stabilizing state space controller for cube angle and angle velocity
+
+
+    // --- AUFGABE 6.5 ---
+    // variables for state space controller with integrator for velocity error
+
+
+    // --- AUFGABE 7.1 ---
+    // simple P controller gain
+
+
+    // --- AUFGABE 7.5 ---
+    // excitation signal for frequency response measurement
+
+
+    while (true) {
         ThisThread::flags_wait_any(m_ThreadFlag);
         const float time = 1e-6f * (float)(duration_cast<microseconds>(m_Timer.elapsed_time()).count());
         // --------------------- THE LOOP ---------------------
@@ -72,6 +92,7 @@ void realtime_thread::loop(void)
         const float aY = m_IO_handler->get_ay();
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         myDataLogger.write_to_log(time, phi_bd, aX, aY, phi_bd, 0.0f, 0.0f);
         
 =======
@@ -79,28 +100,37 @@ void realtime_thread::loop(void)
         // log angle estimate from complementary filter
         myDataLogger.write_to_log(time, phi_bd, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
 >>>>>>> 31d4a9c (Prepared template for follow up lab)
+=======
+        // --- AUFGABE 3.2 ---
+        // log angle estimate from complementary filter
+        myDataLogger.write_to_log(time, phi_bd, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+>>>>>>> 1481f77dda6af713fcb1994ded184ea24546c788
 
-        // // state machine
-        // float i_des = 0.0f;
-        // const bool do_transition = m_IO_handler->get_and_reset_button_state();
-        // switch (m_state) {
-        //     case INIT: {
-        //         // ------------------- INIT -------------------
-        //         // disable motor and wait for button press to switch to FLAT
-        //         m_IO_handler->disable_escon();
+        // state machine
+        float i_des = 0.0f;
+        const bool do_transition = m_IO_handler->get_and_reset_button_state();
+        switch (m_state) {
+            case INIT: {
+                // ------------------- INIT -------------------
+                // disable motor and wait for button press to switch to FLAT
+                m_IO_handler->disable_escon();
 
-        //         // switch to FLAT
-        //         if (do_transition) {
-        //             m_state = FLAT;
-        //             m_IO_handler->enable_escon();
-        //         }
-        //         break;
-        //     }
-        //     case FLAT: {
-        //         // ------------------- FLAT -------------------
+                // switch to FLAT
+                if (do_transition) {
+                    m_state = FLAT;
+                    m_IO_handler->enable_escon();
+                }
+                break;
+            }
+            case FLAT: {
+                // ------------------- FLAT -------------------
+
+                // --- AUFGABE 7.1 ---
+                // simple P controller
 
 <<<<<<< HEAD
 
+<<<<<<< HEAD
 =======
                 // --- AUFGABE 7.1 ---
                 // simple P controller
@@ -119,24 +149,27 @@ void realtime_thread::loop(void)
         //     }
         //     case BALANCE: {
         //         // ------------------- BALANCE ----------------
+=======
+                // --- AUFGABE 7.5 ---
+                // use P controller to measure the frequency response
+>>>>>>> 1481f77dda6af713fcb1994ded184ea24546c788
 
 <<<<<<< HEAD
 
+                // switch to BALANCE
+                if (do_transition) {
+                    m_state = BALANCE;
+                }
+                break;
+            }
+            case BALANCE: {
+                // ------------------- BALANCE ----------------
 
-        //         // switch to FLAT
-        //         if (do_transition) {
-        //             m_state = FLAT;
-        //         }
-        //         break;
-        //     }
-        //     default:
-        //         break;
-        // }
+                // --- AUFGABE 5.2 ---
+                // stabilizing state space controller for cube angle and angle velocity
 
-        // // write current setpoint to motor
-        // i_des = saturate(i_des, -15.0f, 15.0f);
-        // m_IO_handler->write_current(i_des);
 
+<<<<<<< HEAD
         // // GPA - do not overwrite exc if you want to excite via the GPA
         // exc = myGPA.update(i_des, phi_fw_vel); // GPA calculates future excitation exc(k+1)
 =======
@@ -144,6 +177,8 @@ void realtime_thread::loop(void)
                 // stabilizing state space controller for cube angle and angle velocity
 
 
+=======
+>>>>>>> 1481f77dda6af713fcb1994ded184ea24546c788
                 // --- AUFGABE 6.5 ---
                 // state space controller with integrator for velocity error
 
@@ -180,7 +215,10 @@ void realtime_thread::loop(void)
 
         // --- AUFGABE 7.5 ---
         // measure the frequency response, GPA calculates future excitation exc(k+1)
+<<<<<<< HEAD
 >>>>>>> 31d4a9c (Prepared template for follow up lab)
+=======
+>>>>>>> 1481f77dda6af713fcb1994ded184ea24546c788
     }
 }
 
